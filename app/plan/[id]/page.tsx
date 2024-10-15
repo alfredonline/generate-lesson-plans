@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { notFound, redirect } from "next/navigation";
 import React from "react";
+import { LessonPlan, Section } from "@prisma/client";
 
 const page = async ({
   params,
@@ -24,13 +25,8 @@ const page = async ({
       id: params.id,
       userId: user.id,
     },
-    select: {
-        sections: true,
-        title: true, 
-        subject: true, 
-        objective: true, 
-        studentLevel: true, 
-        duration: true, 
+    include: {
+      sections: true,
     }
   });
 
@@ -42,7 +38,7 @@ const page = async ({
 
   return (
     <MaxWidthWrapper>
-      <Plan lessonPlan={lessonPlan} />
+      <Plan lessonPlan={lessonPlan as LessonPlan & { sections: Section[] }} />
     </MaxWidthWrapper>
   );
 };

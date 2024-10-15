@@ -7,7 +7,9 @@ import { LessonPlan, Section } from "@prisma/client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
-const Classic = ({ lessonPlan }: { lessonPlan: LessonPlan }) => {
+type LessonPlanWithSections = LessonPlan & { sections: Section[] };
+
+const Classic = ({ lessonPlan }: { lessonPlan: LessonPlanWithSections }) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   return (

@@ -1,8 +1,8 @@
 "use client";
-import { LessonPlan } from "@prisma/client";
 import { motion, AnimatePresence } from "framer-motion";
 import { Layout } from "lucide-react";
 import { useState } from "react";
+import { LessonPlan, Section } from "@prisma/client";
 
 import React from "react";
 import { Button } from "./ui/button";
@@ -25,7 +25,9 @@ const designs = [
   },
 ];
 
-const Plan = ({ lessonPlan }: { lessonPlan: any }) => {
+type LessonPlanWithSections = LessonPlan & { sections: Section[] };
+
+const Plan = ({ lessonPlan }: { lessonPlan: LessonPlanWithSections }) => {
   const [activeDesign, setActiveDesign] = useState<number>(0);
   const [isDesignSwitcherOpen, setIsDesignSwitcherOpen] =
     useState<boolean>(false);

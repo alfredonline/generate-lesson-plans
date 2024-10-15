@@ -13,7 +13,6 @@ import {
 import { buttonVariants } from "./ui/button";
 import { Package, Settings } from "lucide-react";
 import Link from "next/link";
-import { createCustomerIfNull } from "@/utils/stripe";
 
 const Dashboard = ({
   lessonPlans,

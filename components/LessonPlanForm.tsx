@@ -20,7 +20,6 @@ import {
   GraduationCap,
   Loader2,
   X,
-  ClockIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { subtopics, topics, durations, studentLevels } from "@/constants";

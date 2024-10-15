@@ -1,6 +1,6 @@
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import PricingSection from "@/components/common/PricingSection";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
