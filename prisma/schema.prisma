@@ -1,0 +1,44 @@
+// prisma/schema.prisma
+datasource db {
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id                 String       @id @default(cuid())
+    email              String       @unique
+    name               String?
+    createdAt          DateTime     @default(now())
+    updatedAt          DateTime     @updatedAt
+    lessonPlans        LessonPlan[]
+    stripe_customer_id String?
+}
+
+model LessonPlan {
+    id           String    @id @default(cuid())
+    title        String
+    duration     Int
+    subject      String
+    sections     Section[]
+    createdAt    DateTime  @default(now())
+    userId       String
+    user         User      @relation(fields: [userId], references: [id])
+    topic        String
+    subtopic     String
+    objective    String
+    studentLevel String
+}
+
+model Section {
+    id           String     @id @default(cuid())
+    title        String
+    content      String
+    lessonPlanId String
+    lessonPlan   LessonPlan @relation(fields: [lessonPlanId], references: [id])
+    duration     Int
+}
