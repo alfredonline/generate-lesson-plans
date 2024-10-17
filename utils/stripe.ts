@@ -54,7 +54,7 @@ export async function createCheckoutLink(customer: string) {
         customer: customer, 
         line_items: [
             {
-                price: "price_1QA92fBlhXx5eovwb67YRuqp",
+                price: process.env.PRICE_ID,
                 quantity: 1
             }
         ], 
