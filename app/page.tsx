@@ -175,8 +175,8 @@ function FAQSection() {
 
 function CTASection() {
   return (
-    <div className="py-20 text-center">
-      <h2 className="text-3xl font-bold mb-6">
+    <div className="py-22 text-center">
+      <h2 className="text-6xl font-extrabold from-black via-slate-300 to-white bg-clip-text bg-gradient-to-b text-transparent mb-6">
         Ready to transform your lesson planning?
       </h2>
       <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">

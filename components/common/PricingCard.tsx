@@ -39,7 +39,7 @@ const PricingCard = ({
         <ul className="space-y-2">
           {tier.features.map((feature, fIndex) => (
             <li key={fIndex} className="flex items-center">
-              <CheckIcon className="h-5 w-5 text-primary mr-2" />
+              <CheckIcon className="h-5 w-5 text-green-600 mr-2" />
               {feature}
             </li>
           ))}
@@ -60,7 +60,7 @@ const PricingCard = ({
               variant: "default",
             })}
           >
-            Upgrade to Pro
+            Upgrade to Pro🚀
           </LoginLink>
         )}
       </CardFooter>
