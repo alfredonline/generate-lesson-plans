@@ -85,8 +85,8 @@ const Dashboard = ({
                 <Link href={`/plan/${plan.id}`}>
                   <CardContent className="p-6 bg-white h-40 flex flex-col justify-center items-center text-center">
                     <h3 className="font-semibold text-lg mb-2 text-teal-600">{plan.title}</h3>
-                    <p className="text-sm text-gray-600">{plan.subject}</p>
-                    <p className="text-sm text-gray-600">{plan.duration} minutes</p>
+                    <p className="text-sm text-slate-800">{plan.subject}</p>
+                    <p className="text-sm text-gray-900">{plan.duration} minutes</p>
                   </CardContent>
                   <CardFooter className="p-4 bg-gray-50 text-xs text-gray-500 rounded-b-lg">
                     <span>{new Date(plan.createdAt).toLocaleDateString()}</span>
