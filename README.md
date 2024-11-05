@@ -11,34 +11,6 @@ Welcome to the **Generate Lesson Plans** repository! 🎉 This project is design
 - **Share Your Ideas**: Submit your unique lesson plans and share them with the community.
 - **Collaborative Community**: Connect with other educators to enhance the learning experience.
 
-## 🛠️ Getting Started
-
-To get started with generating lesson plans, follow these simple steps:
-
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/alfredonline/generate-lesson-plans.git
-   cd generate-lesson-plans
-   ```
-2. **Set Up Your Project**
-   Initiate it with Bun:
-   ```bash
-   bun init
-   ```
-3. **Develop with Bun**: To start the development server, simply run:
-   ```bash
-   bun dev
-   ```
-4. **Install Dependencies**:
-   Make sure you have the necessary packages installed.
-   ```bash
-   bun install
-   ```
-5. **Run the Application**:
-   Start the application and begin generating your lesson plans!
-   ```bash
-   bun run dev
-   ```
 
 ## 📚 Usage
 
