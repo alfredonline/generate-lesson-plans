@@ -38,9 +38,8 @@ const page = async ({
     redirect("/");
     return; // Ensure early return after redirect
   }
-
   if (!user) {
-    logger.warn("User not found, redirecting to home.");
+    console.warn("User not found, redirecting to home.");
     redirect("/");
     return; // Ensure early return after redirect
   }
@@ -64,9 +63,8 @@ const page = async ({
     logger.error("Error fetching lesson plan:", error);
     return notFound(); // You may also want to return an error page or log this
   }
-
   if (!lessonPlan) {
-    logger.warn(`Lesson plan not found for ID: ${params.id}`);
+    logger.error(`Lesson plan not found for ID: ${params.id}`);
     return notFound();
   }
 
