@@ -6,13 +6,6 @@ import { notFound, redirect } from "next/navigation";
 import React from "react";
 import { LessonPlan, Section } from "@prisma/client";
 
-//Logging Improvements
-//Added logging messages to give insight into the flow of the function, especially for success and error paths.
-//Utilized info, warn, and error methods for different log levels, making it easier to determine the type of log.
-//Better Error Handling
-//Wrapped both user fetching and lesson plan fetching in try-catch blocks to catch any errors that may arise during these operations.
-
-// Optional: you can use a logging library, e.g. Winston, to manage logs better
 const logger = {
   info: console.log,
   error: console.error,
