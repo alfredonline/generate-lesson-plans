@@ -1,110 +1,151 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+"use client"
+// Make sure this remains a client component
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Shield, Lock, Mail, ExternalLink, Globe, Clock, AlertCircle, ChevronDown, Eye, Key, Bell } from 'lucide-react';
 
 const PrivacyPolicy = () => {
-  return (
-    <Card className="max-w-4xl mx-auto my-8">
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold">Privacy Policy</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <p className="text-sm text-gray-600">Last Modified: {new Date().toLocaleDateString()}</p>
+  const [expandedSection, setExpandedSection] = useState('');
+  const [hoveredSection, setHoveredSection] = useState('');
+
+  const sections = [
+    {
+      id: 'information',
+      title: 'Information Collection',
+      icon: <Eye className="w-5 h-5" />,
+      content: `Personal Information: When you sign up, we collect your name and email address. This information comes entirely from your input during the registration process. We do not obtain this information from any other sources. We use this information for personalization and any essential communication with you. We never sell your data.
+
+      Voluntary Correspondence: We retain questions or assistance requests, including your email, for future reference.
+
+      Marketing Communications: Your email is processed for direct marketing and support. Unsubscribe anytime, and we promptly delete your information upon request.`
+    },
+    {
+      id: 'security',
+      title: 'Security Protocol',
+      icon: <Key className="w-5 h-5" />,
+      content: 'We use Kinde to manage user authentication. We do not store any passwords on our servers. Kinde provides a secure authentication system that helps protect your account information.'
+    },
+    {
+      id: 'data',
+      title: 'Data Management',
+      icon: <Globe className="w-5 h-5" />,
+      content: 'Deleted data may remain in our database while your account is active. When you delete your account, all of your data is removed from our database. Retrieving data from backups is impractical. You can delete your account at any time by contacting us.'
+    },
+    {
+      id: 'gdpr',
+      title: 'GDPR Compliance',
+      icon: <Bell className="w-5 h-5" />,
+      content: 'You have the right to access, rectification, erasure, restrict processing, object to processing, and data portability.'
+    }
+  ];
+
+  const Section = ({ section }) => {
+    const isExpanded = expandedSection === section.id;
+    const isHovered = hoveredSection === section.id;
+
+    return (
+      <div 
+        className="relative group"
+        onMouseEnter={() => setHoveredSection(section.id)}
+        onMouseLeave={() => setHoveredSection('')}
+        onClick={() => setExpandedSection(isExpanded ? '' : section.id)}
+      >
+        <div className={`
+          absolute inset-0 bg-gradient-to-r from-violet-50/50 via-fuchsia-50/50 to-cyan-50/50
+          opacity-0 group-hover:opacity-100 transition-opacity duration-500
+        `} />
         
-        <section>
-          <p>
-            generatelessonplans.com (&apos;we&apos;, &apos;us&apos;, or &apos;our&apos;) provides this Privacy Policy to inform you of our policies and procedures regarding the collection, use and disclosure of personal information we may receive from users of our website (&apos;Site&apos;), accessible from https://generatelessonplans.com, and any other services offered by us in connection with our site (any and all of the foregoing the &apos;Services&apos;).
-          </p>
-          <p className="mt-2">
-            If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at hello@alfiewebdev.com. This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in generatelessonplans.com. This policy is not applicable to any information collected offline or via channels other than this website.
-          </p>
-        </section>
+        <div className="relative border-b border-gray-100 last:border-0">
+          <div className="flex items-center justify-between p-8 cursor-pointer">
+            <div className="flex items-center gap-6">
+              <div className={`
+                p-3 rounded-2xl transition-all duration-500
+                ${isHovered ? 'bg-gradient-to-r from-violet-100 to-fuchsia-100' : 'bg-gray-50'}
+                transform ${isHovered ? 'scale-110' : 'scale-100'}
+              `}>
+                {section.icon}
+              </div>
+              <h2 className="text-lg font-medium bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900">
+                {section.title}
+              </h2>
+            </div>
+            <ChevronDown 
+              className={`w-5 h-5 transition-all duration-500 ${
+                isExpanded ? 'rotate-180 text-violet-500' : ''
+              } ${isHovered ? 'text-fuchsia-500' : 'text-gray-400'}`}
+            />
+          </div>
+          
+          <div className={`
+            overflow-hidden transition-all duration-500 ease-in-out
+            ${isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
+          `}>
+            <div className="px-8 pb-8 text-gray-600 leading-relaxed">
+              {section.content}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Consent</h2>
-          <p>
-            By using our website, you hereby consent to our Privacy Policy and agree to its terms.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Information we collect</h2>
-          <p>
-            <strong>Personal Information:</strong> When you sign up, we collect your name and email address. This information comes entirely from your input during the registration process. We do not obtain this information from any other sources. We use this information for personalization and any essential communication with you. We never sell your data.
-          </p>
-          <p className="mt-2">
-            <strong>Voluntary Correspondence:</strong> We retain questions or assistance requests, including your email, for future reference.
-          </p>
-          <p className="mt-2">
-            <strong>Marketing Communications:</strong> Your email is processed for direct marketing and support. Unsubscribe anytime, and we promptly delete your information upon request.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Authentication and Security</h2>
-          <p>
-            We use Kinde to manage user authentication. We do not store any passwords on our servers. Kinde provides a secure authentication system that helps protect your account information.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Your Data</h2>
-          <p>
-            Deleted data may remain in our database while your account is active. When you delete your account, all of your data is removed from our database. Retrieving data from backups is impractical.
-            You can delete your account at any time by contacting us at hello@alfiewebdev.com.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Links to Other Sites</h2>
-          <p>
-            Our services may contain links to other websites, applications, and online services. If you choose to visit a third party service or click on another third party link, you will be directed to that third party&apos;s website, application, or online service. The fact that we link to a website, content is not an endorsement, authorization or representation of our affiliation with that third party, nor is it an endorsement of their privacy or information security policies or practices. We do not exercise control over third party websites or services.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Third Party Privacy Policies</h2>
-          <p>
-            Our Privacy Policy does not apply to other websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">GDPR Data Protection Rights</h2>
-          <p>
-            We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following:
-          </p>
-          <ul className="list-disc pl-6 mt-2 space-y-1">
-            <li>The right to access</li>
-            <li>The right to rectification</li>
-            <li>The right to erasure</li>
-            <li>The right to restrict processing</li>
-            <li>The right to object to processing</li>
-            <li>The right to data portability</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Changes to This Privacy Policy</h2>
-          <p>
-            This Privacy Policy may be revised periodically, and this will be reflected by a 'Last modified' date above. Thus, we advise you to review this page periodically for any changes. We will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately, after they are posted on this page.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Contact Us</h2>
-          <p>
-            If you have any questions about this Privacy Policy, please contact us at:{' '}
-            <a href="mailto:hello@alfiewebdev.com" className="text-blue-600 hover:underline">
-              hello@alfiewebdev.com
-            </a>
-          </p>
-        </section>
-
-        <p className="text-sm text-gray-600 mt-6">
-          &copy; {new Date().getFullYear()} Generate Lesson Plans. All rights reserved.
-        </p>
-      </CardContent>
-    </Card>
+  return (
+    <div className="max-w-4xl mx-auto my-12 px-4">
+      <Card className="
+        backdrop-blur-xl bg-white/90 shadow-2xl border-0 overflow-hidden
+        rounded-3xl relative group
+      ">
+        <div className="absolute inset-0 bg-gradient-to-tr from-violet-50/20 via-transparent to-cyan-50/20 opacity-50" />
+        
+        <CardHeader className="text-center p-12 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-50/50 via-fuchsia-50/50 to-cyan-50/50 opacity-50" />
+          
+          <div className="relative">
+            <div className="flex justify-center mb-8">
+              <div className="p-4 rounded-3xl bg-gradient-to-tr from-violet-100 via-fuchsia-50 to-cyan-100 transform transition-transform hover:scale-110 duration-500">
+                <Shield className="w-10 h-10 text-gray-900" />
+              </div>
+            </div>
+            
+            <h1 className="text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-600">
+              Privacy Policy
+            </h1>
+            
+            <p className="text-sm text-gray-500">
+              Last Modified: {new Date().toLocaleDateString()}
+            </p>
+          </div>
+        </CardHeader>
+        
+        <CardContent className="p-0 relative">
+          {sections.map(section => (
+            <Section key={section.id} section={section} />
+          ))}
+          
+          <div className="p-8 bg-gradient-to-b from-transparent via-gray-50/50 to-gray-100/50">
+            <div className="flex items-center justify-between gap-4 text-sm">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl bg-gradient-to-r from-violet-100/50 to-fuchsia-100/50">
+                  <Clock className="w-4 h-4 text-gray-600" />
+                </div>
+                <span className="text-gray-600">&copy; {new Date().getFullYear()} Generate Lesson Plans</span>
+              </div>
+              
+              <a 
+                href="mailto:hello@alfiewebdev.com"
+                className="flex items-center gap-3 group/link"
+              >
+                <div className="p-2 rounded-xl bg-gradient-to-r from-fuchsia-100/50 to-cyan-100/50 group-hover/link:from-violet-200 group-hover/link:to-fuchsia-200 transition-all duration-300">
+                  <Mail className="w-4 h-4 text-gray-600" />
+                </div>
+                <span className="text-gray-600 group-hover/link:text-gray-900 transition-colors">Contact</span>
+                <ExternalLink className="w-3 h-3 text-gray-400 group-hover/link:text-gray-900 transition-colors" />
+              </a>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
