@@ -1,138 +1,241 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { 
+  Shield, AlertCircle, ExternalLink, Globe, Clock, 
+  Lock, FileText, Server, User, Code, Link, RefreshCcw, 
+  Copyright, Mail 
+} from 'lucide-react';
+
+// Custom Section interface for type safety
+interface Section {
+  id: string;
+  title: string;
+  icon: JSX.Element;
+  content: string;
+}
 
 const TermsOfService = () => {
+  // State management for interactions
+  const [expandedSection, setExpandedSection] = useState('');
+  const [hoveredSection, setHoveredSection] = useState('');
+
+  // Define all terms sections with their content
+  const sections: Section[] = [
+    {
+      id: 'liability',
+      title: 'Liability & Warranties',
+      icon: <Shield className="w-5 h-5" />,
+      content: `No Warranty or Guarantee: We provide this service 'as-is' and without any warranty or guarantee. While we make every effort to ensure the functionality, security, and reliability of our site, we do not make any representations or warranties regarding the accuracy, completeness, or suitability of the information and materials found or offered on this website.
+
+      Exclusion of Liability: In no event shall we be liable for any direct, indirect, incidental, consequential, special, or exemplary damages.
+      
+      User Responsibility: You acknowledge and agree that your use of this service is at your own risk.`
+    },
+    {
+      id: 'ai-content',
+      title: 'AI-Generated Content',
+      icon: <Code className="w-5 h-5" />,
+      content: `No Control Over AI Output: We utilize AI technology to generate lesson plans based on user inputs. While we strive to provide accurate and appropriate content, we have no control over the specific output of the AI-generated lesson plans.
+
+      Prohibited Content: You agree not to use our service to generate any content that is inappropriate for educational purposes.`
+    },
+    {
+      id: 'security',
+      title: 'Security & Privacy',
+      icon: <Lock className="w-5 h-5" />,
+      content: `We implement reasonable security measures to protect the integrity of our platform. However, you acknowledge that no online service can be completely secure. We do not assume responsibility for any unauthorized access, data breaches, or other security incidents that may occur.`
+    },
+    {
+      id: 'account',
+      title: 'Account Management',
+      icon: <User className="w-5 h-5" />,
+      content: `Account Management: We reserve the right to manage your account at our discretion. This includes the right to delete, suspend, or lock your account and associated data without prior notice.
+
+      Account Security: It is your responsibility to maintain the security of your account credentials.`
+    },
+    {
+      id: 'external',
+      title: 'External Links',
+      icon: <Link className="w-5 h-5" />,
+      content: `Our service may contain links to external websites or services that are not owned or controlled by us. We are not responsible for the content, privacy policies, or practices of any third-party websites.`
+    },
+    {
+      id: 'updates',
+      title: 'Updates & Changes',
+      icon: <RefreshCcw className="w-5 h-5" />,
+      content: `We reserve the right to update these terms of service at any time. Updates may be made to reflect changes in our services, legal requirements, or other considerations.`
+    }
+  ];
+
+  // Custom section component with modern styling and animations
+  const Section = ({ section }: { section: Section }) => {
+    const isExpanded = expandedSection === section.id;
+    const isHovered = hoveredSection === section.id;
+
+    return (
+      <div 
+        className="relative group"
+        onMouseEnter={() => setHoveredSection(section.id)}
+        onMouseLeave={() => setHoveredSection('')}
+        onClick={() => setExpandedSection(isExpanded ? '' : section.id)}
+      >
+        {/* Gradient background effect on hover */}
+        <div className={`
+          absolute inset-0 bg-gradient-to-r from-blue-50/50 via-violet-50/50 to-purple-50/50
+          opacity-0 group-hover:opacity-100 transition-opacity duration-500
+        `} />
+        
+        <div className="relative border-b border-gray-100 last:border-0">
+          {/* Section header with icon and title */}
+          <div className="flex items-center justify-between p-8 cursor-pointer">
+            <div className="flex items-center gap-6">
+              {/* Animated icon container */}
+              <div className={`
+                p-3 rounded-2xl transition-all duration-500
+                ${isHovered ? 'bg-gradient-to-r from-blue-100 to-violet-100' : 'bg-gray-50'}
+                transform ${isHovered ? 'scale-110' : 'scale-100'}
+              `}>
+                {section.icon}
+              </div>
+              {/* Gradient text title */}
+              <h2 className="text-lg font-medium bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900">
+                {section.title}
+              </h2>
+            </div>
+            {/* Animated expand/collapse indicator */}
+            <div className={`
+              w-6 h-6 flex items-center justify-center
+              transition-transform duration-500
+              ${isExpanded ? 'rotate-180' : ''}
+            `}>
+              <div className={`
+                w-1 h-1 rounded-full
+                ${isHovered ? 'bg-violet-500' : 'bg-gray-400'}
+              `} />
+            </div>
+          </div>
+          
+          {/* Expandable content section */}
+          <div className={`
+            overflow-hidden transition-all duration-500 ease-in-out
+            ${isExpanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}
+          `}>
+            <div className="px-8 pb-8 text-gray-600 leading-relaxed">
+              {section.content}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <Card className="max-w-4xl mx-auto my-8">
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold">Terms of Service</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <p className="text-sm text-gray-600">Last Modified: {new Date().toLocaleDateString()}</p>
+    <div className="max-w-4xl mx-auto my-12 px-4">
+      {/* Main card with glass morphism effect */}
+      <Card className="
+        backdrop-blur-xl bg-white/90 shadow-2xl border-0 overflow-hidden
+        rounded-3xl relative group
+      ">
+        {/* Background gradient effects */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-50/20 via-transparent to-violet-50/20 opacity-50" />
+        
+        {/* Header section with modern styling */}
+        <CardHeader className="text-center p-12 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 via-violet-50/50 to-purple-50/50 opacity-50" />
+          
+          <div className="relative">
+            {/* Animated logo icon */}
+            <div className="flex justify-center mb-8">
+              <div className="p-4 rounded-3xl bg-gradient-to-tr from-blue-100 via-violet-50 to-purple-100 transform transition-transform hover:scale-110 duration-500">
+                <FileText className="w-10 h-10 text-gray-900" />
+              </div>
+            </div>
+            
+            {/* Title with gradient text */}
+            <h1 className="text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600">
+              Terms of Service
+            </h1>
+            
+            {/* Last modified date */}
+            <p className="text-sm text-gray-500">
+              Last Modified: {new Date().toLocaleDateString()}
+            </p>
+          </div>
+        </CardHeader>
+        
+        {/* Content sections */}
+        <CardContent className="p-0 relative">
+          {sections.map(section => (
+            <Section key={section.id} section={section} />
+          ))}
+          
+          {/* Footer section with modern styling */}
+          <div className="p-8 bg-gradient-to-b from-transparent via-gray-50/50 to-gray-100/50">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+              {/* Copyright info */}
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl bg-gradient-to-r from-blue-100/50 to-violet-100/50">
+                  <Copyright className="w-4 h-4 text-gray-600" />
+                </div>
+                <span className="text-gray-600">
+                  &copy; {new Date().getFullYear()} Generate Lesson Plans
+                </span>
+              </div>
+              
+              {/* Contact link */}
 
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Liability</h2>
-          <p>
-            <strong>No Warranty or Guarantee:</strong> We provide this service &apos;as-is&apos; and without any warranty or guarantee. While we make every effort to ensure the functionality, security, and reliability of our site, we do not make any representations or warranties regarding the accuracy, completeness, or suitability of the information and materials found or offered on this website.
-          </p>
-          <p className="mt-2">
-            <strong>Exclusion of Liability:</strong> In no event shall we be liable for any direct, indirect, incidental, consequential, special, or exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data, or other intangible losses, resulting from the use or inability to use our services.
-          </p>
-          <p className="mt-2">
-            <strong>User Responsibility:</strong> You acknowledge and agree that your use of this service is at your own risk. We are not responsible for any damages or issues that may arise, including but not limited to, data loss, system errors, or interruptions in service. It is your responsibility to take appropriate precautions and ensure that any services or information obtained through our site meet your specific requirements.
-          </p>
-          <p className="mt-2">
-            <strong>Indemnification:</strong> By using this service, you agree to indemnify and hold us harmless from any claims, actions, damages, liabilities, costs, and expenses, including reasonable attorneys' fees, arising out of or in connection with your use of the service or any violation of these terms.
-          </p>
-          <p className="mt-2">
-            It's important to review and understand these terms fully. If you do not agree with any part of these terms, your only recourse is to discontinue your use of the service.
-          </p>
-        </section>
 
-        <section>
-          <h2 className="text-xl font-semibold mb-2">AI-Generated Content</h2>
-          <p>
-            <strong>No Control Over AI Output:</strong> We utilize AI technology to generate lesson plans based on user inputs. While we strive to provide accurate and appropriate content, we have no control over the specific output of the AI-generated lesson plans. The results may vary and may not always meet your expectations.
-          </p>
-          <p className="mt-2">
-            <strong>Prohibited Content:</strong> You agree not to use our service to generate any content that is inappropriate for educational purposes, explicit, or illegal in nature. This includes, but is not limited to, content that is sexually explicit, violent, defamatory, obscene, or infringes on intellectual property rights. Any attempt to generate such content will result in an immediate ban of your account.
-          </p>
-          <p className="mt-2">
-            <strong>Disclaimer of Responsibility:</strong> We are not responsible for any content generated by users through our application. You acknowledge and agree that you are solely responsible for the content you generate and any consequences that may arise from its use. We disclaim any liability for any harm or damages resulting from user-generated content.
-          </p>
-        </section>
 
-        <section>
-          <h2 className="text-xl font-semibold mb-2">External Links</h2>
-          <p>
-            Our service may contain links to external websites or services that are not owned or controlled by us. We are not responsible for the content, privacy policies, or practices of any third-party websites. You acknowledge and agree that we shall not be held liable for any damages or issues that may arise from your use of such sites.
-          </p>
-          <p className="mt-2">
-            We are not able to verify the external links uploaded by users; therefore, it is your responsibility to open them at your own risk.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Account</h2>
-          <p>
-            <strong>Account Management:</strong> We reserve the right to manage your account at our discretion. This includes the right to delete, suspend, or lock your account and associated data without prior notice. Such actions may be taken for reasons including, but not limited to, violation of our terms of service, suspected fraudulent activities, or any other actions that may compromise the security and integrity of our platform.
-          </p>
-          <p className="mt-2">
-            <strong>Termination:</strong> We may terminate or suspend your account for any reason, including breach of these terms. In the event of termination, you will no longer have access to your account and any data associated with it. We are not liable for any loss or damage that may result from the termination of your account.
-          </p>
-          <p className="mt-2">
-            <strong>Account Security:</strong> It is your responsibility to maintain the security of your account credentials. You agree not to share your login information with third parties. You are solely responsible for any activities that occur under your account.
-          </p>
-          <p className="mt-2">
-            <strong>Account Data:</strong> You can delete your account and all the associated data we store in our system at any time by going to your account settings page and deleting your account. Just note that once your account is deleted, there is no way to recover your data.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Uptime, Security, and Privacy</h2>
-          <p>
-            <strong>Uptime:</strong> While we strive to maintain the availability of our services, we do not provide any service level agreement (SLA). The website&apos;s uptime may be subject to occasional interruptions, including maintenance, updates, or unforeseen technical issues. Your use of this service is at your own risk, and we do not guarantee uninterrupted access to our platform.
-          </p>
-          <p className="mt-2">
-            <strong>Security:</strong> We implement reasonable security measures to protect the integrity of our platform. However, you acknowledge that no online service can be completely secure. We do not assume responsibility for any unauthorized access, data breaches, or other security incidents that may occur. It is your responsibility to take appropriate measures to secure your account and data.
-          </p>
-          <p className="mt-2">
-            <strong>Privacy:</strong> Your privacy is important to us. Our privacy practices are outlined in our separate Privacy Policy, which is an integral part of these terms. By using our services, you agree to the collection, use, and disclosure of your information as described in the Privacy Policy. It is your responsibility to review the Privacy Policy and understand how your data is handled.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Copyright and Content Ownership</h2>
-          <p>
-            <strong>Ownership of Generated Content:</strong> We do not claim any rights to the lesson plans generated using our service. We also do not claim the right to any of the user-generated data, including but not limited to, group info, posts, events, or replies, etc.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Features and Bugs</h2>
-          <p>
-            <strong>Continuous Improvement:</strong> We are dedicated to continuously adding new features and improving existing functionalities to enhance your experience. By agreeing to our terms, you acknowledge that the system may undergo changes over time to introduce new features or enhance existing ones.
-          </p>
-          <p className="mt-2">
-            <strong>Bug Fixes:</strong> Bugs are an inevitable part of any software system. While we strive to maintain a seamless experience, you understand that bugs may be identified and fixed during the course of our ongoing development efforts. We appreciate your understanding and cooperation in reporting any issues you may encounter.
-          </p>
-          <p className="mt-2">
-            <strong>Impact on User Experience:</strong> Changes to the system, including the introduction of new features or bug fixes, may impact your overall experience. By agreeing to our terms, you accept that such changes are inherent in the nature of software development, and we cannot guarantee that your experience will remain unchanged.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Use of Third Party Services</h2>
-          <p>
-            <strong>Third-Party Services:</strong> We utilize third-party services for hosting the application and storing user-generated lesson plans, and we are not responsible for their operations, performance, or any consequences arising from their use.
-          </p>
-          <p className="mt-2">
-            <strong>No Affiliation:</strong> We want to make it explicitly clear that we are not affiliated with the third-party services we employ. Any issues or concerns related to their services should be directed to the respective third-party providers.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-2">Updates to Terms of Service</h2>
-          <p>
-            <strong>Right to Update:</strong> We reserve the right to update these terms of service at any time. Updates may be made to reflect changes in our services, legal requirements, or other considerations. Your continued use of our application after any such changes constitutes your acceptance of the modified terms.
-          </p>
-          <p className="mt-2">
-            <strong>No Obligation to Notify:</strong> While we may make efforts to communicate significant changes, you agree that we are not obligated to notify users individually when updates occur. It is your responsibility to check back on these terms periodically to stay informed about any modifications.
-          </p>
-          <p className="mt-2">
-            <strong>Review of Terms:</strong> It's advisable to review these terms regularly to ensure that you are aware of any changes that may affect your use of the application. Your continued use of the service after updates indicates your agreement to be bound by the modified terms.
-          </p>
-        </section>
-
-        <p className="text-sm text-gray-600 mt-6">
-          &copy; {new Date().getFullYear()} Generate Lesson Plans. All rights reserved.
-        </p>
-        <p className="text-sm text-gray-600">
-          Contact: <a href="mailto:hello@alfiewebdev.com" className="text-blue-600 hover:underline">hello@alfiewebdev.com</a>
-        </p>
-      </CardContent>
-    </Card>
+              <a 
+                href="mailto:hello@alfiewebdev.com"
+                className="flex items-center gap-3 group/link"
+              >
+                <div className="p-2 rounded-xl bg-gradient-to-r from-violet-100/50 to-purple-100/50 group-hover/link:from-blue-200 group-hover/link:to-violet-200 transition-all duration-300">
+                  <Mail className="w-4 h-4 text-gray-600" />
+                </div>
+                <span className="text-gray-600 group-hover/link:text-gray-900 transition-colors">
+                  Contact Us
+                </span>
+                <ExternalLink className="w-3 h-3 text-gray-400 group-hover/link:text-gray-900 transition-colors" />
+              </a>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
+
 export default TermsOfService;
+
+
+
+//To make contact link dynamic 
+//Add a contactConfig object that contains all contact methods and their details          
+//then create a reusable ContactLink component that handles
+
+
+//consider to update these changes 
+
+
+//Hover states
+//Different icon types
+//External vs internal links
+//Proper link attributes for security
+//Visual feedback on interaction
+
+
+//you also need to hence Enhanced the display with
+//Two-line contact information (label + value)
+//Responsive layout (stacks on mobile, row on desktop)
+//Multiple contact methods (email, phone, chat)
+
+
+
+//then Add security attributes
+
+//target="_blank" for external links
+//rel="noopener noreferrer" for security
+//Proper href formatting for different contact types (mailto:, tel:, etc.)
+
